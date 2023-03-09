@@ -9,5 +9,9 @@
 # masonwjw1@uci.edu
 # 48567424
 
+"""This module runs the program."""
+
+import ui
+
 if __name__ == '__main__':
-    pass
+    ui.run()
