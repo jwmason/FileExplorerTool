@@ -5,7 +5,7 @@
 
 # Replace the following placeholders with your information.
 
-# NAME
-# EMAIL
-# STUDENT ID
+# Mason Wong
+# masonjw1@uci.edu
+# 48567424
 
