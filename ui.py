@@ -7,6 +7,8 @@ import os
 from Profile import Profile, Post
 import ds_client
 import ipaddress
+from OpenWeather import OpenWeather
+from LastFM import LastFM
 
 
 def recursive_print(path, print_dir=True, _name=None, _ext=None):
@@ -96,10 +98,14 @@ def e_p_commands2(path, user_input):
                     else:
                         error()
             elif user_input == '4':
-                post = str(input('Enter post: '))
+                post = str(input('This program makes available keywords\n\'@weather\' - describes the current weather\n\'@lastfm\' - prints artist user provides\nEnter post: '))
                 if post == '' or post == ' ':
                     print('Post cannot be empty or whitespace.')
                 else:
+                    if '@weather' in post:
+                        OpenWeather.transclude(post)
+                    if '@lastfm' in post:
+                        LastFM.transclude(post)
                     post = Post(post)
                     profile.add_post(post)
                     user_input = input('Would you like to publish this post online? (y/n): ')

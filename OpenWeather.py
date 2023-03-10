@@ -9,14 +9,17 @@
 # masonjw1@uci.edu
 # 48567424
 
+# key: e5e0d69e2df302b25f3f486a47e42067
+
 """This module retrieves data from the OpenWeather API."""
 
 import json
 from urllib import request,error
 import urllib.request, urllib.error
+import WebAPI
 
 
-class OpenWeather:
+class OpenWeather(WebAPI.WebAPI):
     """This class stores data (temperatures, coordinates, and
     weather descriptions) from OpenWeather API."""
     def __init__(self, zip: str, ccode: str):
@@ -43,11 +46,10 @@ class OpenWeather:
         #TODO: use the apikey data attribute and the urllib module to request data from the web api. See sample code at the begining of Part 1 for a hint.
         #TODO: assign the necessary response data to the required class data attributes
         url = f"http://api.openweathermap.org/data/2.5/weather?zip={self.zip},{self.ccode}&appid={self.apikey}"
-        try:
-            response = urllib.request.urlopen(url)
-            json_results = response.read()
-            r_obj = json.loads(json_results)
+        web_api = self
+        r_obj = web_api._download_url(url)
 
+        if r_obj:
             self.temperature = r_obj['main']['temp']
             self.high_temperature = r_obj['main']['temp_max']
             self.low_temperature = r_obj['main']['temp_min']
@@ -57,18 +59,15 @@ class OpenWeather:
             self.humidity = r_obj['main']['humidity']
             self.city = r_obj['name']
             self.sunset = r_obj['sys']['sunset']
+        pass
 
-        except urllib.error.HTTPError as e:
-            if e.code == 404 or e.code == 503:
-                print('Error, the remote API is unavailable')
-            else:
-                print('Failed to download contents of URL')
-                print('Status code: {}'.format(e.code))
-        except urllib.error.URLError:
-            print('Error with local connection to the Internet')
-        except ValueError:
-            print('Error with invalid data formatting from the remote API')
-        except SyntaxError:
-            print('Error with invalid data formatting from the remote API')
-        finally:
-            response.close()
+
+    def transclude(self, message:str) -> str:
+        '''
+        Replaces keywords in a message with associated API data.
+        :param message: The message to transclude
+            
+        :returns: The transcluded message
+        '''
+        #TODO: write code necessary to transclude keywords in the message parameter with appropriate data from API
+        return message.replace('@weather', self.description)
