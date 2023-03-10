@@ -11,32 +11,12 @@
 
 """This module retrieves data from the OpenWeather API."""
 
-import urllib, json
+import json
 from urllib import request,error
 import urllib.request, urllib.error
 
 
-def _download_url(url_to_download: str) -> dict:
-    response = None
-    r_obj = None
-
-    try:
-        response = urllib.request.urlopen(url_to_download)
-        json_results = response.read()
-        r_obj = json.loads(json_results)
-
-    except urllib.error.HTTPError as e:
-        print('Failed to download contents of URL')
-        print('Status code: {}'.format(e.code))
-
-    finally:
-        if response != None:
-            response.close()
-    
-    return r_obj
-
-
-class OpenWeather():
+class OpenWeather:
     """This class stores data from OpenWeather API."""
     def __init__(self, zip: str, ccode: str):
         self.zip = zip
@@ -79,20 +59,14 @@ class OpenWeather():
             self.sunset = r_obj['sys']['sunset']
 
         except urllib.error.HTTPError as e:
-            print('Failed to download contents of URL')
-            print('Status code: {}'.format(e.code))
-
-
-def main() -> None:
-    zip = "92697"
-    ccode = "US"
-    apikey = "e5e0d69e2df302b25f3f486a47e42067"
-    url = f"http://api.openweathermap.org/data/2.5/weather?zip={zip},{ccode}&appid={apikey}"
-
-    weather_obj = _download_url(url)
-    if weather_obj is not None:
-        print(weather_obj)
-
-
-if __name__ == '__main__':
-    main()
+            if e.code == 404 or e.code == 503:
+                print('Error, the remote API is unavailable')
+            else:
+                print('Failed to download contents of URL')
+                print('Status code: {}'.format(e.code))
+        except urllib.error.URLError:
+            print('Error with local connection to the Internet')
+        except ValueError:
+            print('Error with invalid data formatting from the remote API')
+        except SyntaxError:
+            print('Error with invalid data formatting from the remote API')
