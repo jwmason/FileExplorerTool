@@ -17,11 +17,11 @@ import urllib.request, urllib.error
 
 
 class OpenWeather:
-    """This class stores data from OpenWeather API."""
+    """This class stores data (temperatures, coordinates, and
+    weather descriptions) from OpenWeather API."""
     def __init__(self, zip: str, ccode: str):
         self.zip = zip
         self.ccode = ccode
-        self.weather_data = {}
 
 
     def set_apikey(self, apikey:str) -> None:
@@ -70,3 +70,5 @@ class OpenWeather:
             print('Error with invalid data formatting from the remote API')
         except SyntaxError:
             print('Error with invalid data formatting from the remote API')
+        finally:
+            response.close()
