@@ -5,8 +5,8 @@
 """THis module is in charge of communicating with the DSP server"""
 
 import socket
-import ds_protocol
 import json
+import ds_protocol
 
 
 def true_or_false(resp, post):

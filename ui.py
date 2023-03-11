@@ -5,12 +5,12 @@
 """This module is in charge of user interface."""
 
 from pathlib import Path
-import os
-import ds_client
 import ipaddress
+import os
 from Profile import Profile, Post
 from OpenWeather import OpenWeather
 from LastFM import LastFM
+import ds_client
 
 
 def recursive_print(path, print_dir=True, _name=None, _ext=None):

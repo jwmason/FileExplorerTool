@@ -40,11 +40,10 @@ class WebAPI(ABC):
         print('Error with invalid data formatting from the remote API')
     except SyntaxError:
         print('Error with invalid data formatting from the remote API')
-    pass
 
   def set_apikey(self, apikey: str) -> None:
+    """Sets api key"""
     self.apikey = apikey
-    pass
 
   @abstractmethod
   def load_data(self):

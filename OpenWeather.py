@@ -13,10 +13,6 @@
 
 """This module retrieves data from the OpenWeather API."""
 
-import json
-from urllib import request, error
-import urllib.request
-import urllib.error
 import WebAPI
 
 
@@ -26,6 +22,16 @@ class OpenWeather(WebAPI.WebAPI):
     def __init__(self, zip: str = '95758', ccode: str = 'US'):
         self.zip = zip
         self.ccode = ccode
+        self.apikey = None
+        self.temperature = None
+        self.high_temperature = None
+        self.low_temperature = None
+        self.longitude = None
+        self.latitude = None
+        self.description = None
+        self.humidity = None
+        self.city = None
+        self.sunset = None
 
     def set_apikey(self, apikey: str) -> None:
         '''
@@ -33,10 +39,7 @@ class OpenWeather(WebAPI.WebAPI):
         :param apikey: The apikey supplied by the API service
 
         '''
-        # TODO: assign apikey value to a class data attribute that can
-        # be accessed by class members
         self.apikey = apikey
-        pass
 
     def load_data(self) -> None:
         '''
@@ -44,10 +47,6 @@ class OpenWeather(WebAPI.WebAPI):
         the response in class data attributes.
 
         '''
-        # TODO: use the apikey data attribute and the urllib module
-        # to request data from the web api. See sample code at the begining
-        # of Part 1 for a hint.TODO: assign the necessary response data to
-        # the required class data attributes
         url = f"http://api.openweathermap.org/data/2.5/weather?zip={self.zip},{self.ccode}&appid={self.apikey}"
         web_api = self
         r_obj = web_api._download_url(url)
@@ -62,7 +61,6 @@ class OpenWeather(WebAPI.WebAPI):
             self.humidity = r_obj['main']['humidity']
             self.city = r_obj['name']
             self.sunset = r_obj['sys']['sunset']
-        pass
 
     def transclude(self, message: str) -> str:
         '''
@@ -71,6 +69,4 @@ class OpenWeather(WebAPI.WebAPI):
 
         :returns: The transcluded message
         '''
-        # TODO: write code necessary to transclude keywords in
-        # the message parameter with appropriate data from API
         return message.replace('@weather', self.description)

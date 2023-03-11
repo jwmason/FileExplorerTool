@@ -20,33 +20,26 @@ import time
 from pathlib import Path
 
 
-"""
-DsuFileError is a custom exception handler that you should catch
-in your own code. It is raised when attempting to load or save Profile
-objects to file the system.
-
-"""
-
-
 class DsuFileError(Exception):
-    pass
+    """
+    DsuFileError is a custom exception handler that you should catch
+    in your own code. It is raised when attempting to load or save Profile
+    objects to file the system.
 
-
-"""
-DsuProfileError is a custom exception handler that you should catch in
-your own code. It is raised when attempting to deserialize a dsu file
-to a Profile object.
-
-"""
+    """
 
 
 class DsuProfileError(Exception):
-    pass
+    """
+    DsuProfileError is a custom exception handler that you should catch in
+    your own code. It is raised when attempting to deserialize a dsu file
+    to a Profile object.
+
+    """
 
 
 class Post(dict):
     """
-
     The Post class is responsible for working with individual user posts.
     It currently supports two features: A timestamp property that is set
     upon instantiation and when the entry object is set and an entry property
@@ -55,7 +48,7 @@ class Post(dict):
     """
 
     def __init__(self, entry: str = None, timestamp: float = 0):
-
+        """This initiates the class"""
         self._timestamp = timestamp
         self.set_entry(entry)
 
@@ -64,7 +57,7 @@ class Post(dict):
         dict.__init__(self, entry=self._entry, timestamp=self._timestamp)
 
     def set_entry(self, entry):
-
+        """This sets entry"""
         self._entry = entry
         dict.__setitem__(self, 'entry', entry)
 
@@ -73,24 +66,18 @@ class Post(dict):
             self._timestamp = time.time()
 
     def get_entry(self):
-
+        """This returns entry"""
         return self._entry
 
     def set_time(self, time: float):
-
+        """This sets time"""
         self._timestamp = time
         dict.__setitem__(self, 'timestamp', time)
 
     def get_time(self):
+        """This gets time"""
         return self._timestamp
 
-    """
-
-    The property method is used to support get and set capability
-    for entry and time values. When the value for entry is changed,
-    or set, the timestamp field is updated to the current time.
-
-    """
     entry = property(get_entry, set_entry)
     timestamp = property(get_time, set_time)
 
@@ -113,66 +100,31 @@ class Profile:
     """
 
     def __init__(self, dsuserver=None, username=None, password=None):
+        """This initiates class"""
         self.dsuserver = dsuserver  # REQUIRED
         self.username = username  # REQUIRED
         self.password = password  # REQUIRED
         self.bio = ''            # OPTIONAL
         self._posts = []         # OPTIONAL
 
-    """
-    add_post accepts a Post object as parameter and appends it to the
-    posts list. Posts are stored in a list object in the order they are
-    added. So if multiple Posts objects are created, but added to the Profile
-    in a different order, it is possible for the list to not be sorted by the
-    Post.timestamp property. So take caution as to how you implement your
-    add_post code.
-
-    """
-
     def add_post(self, post: Post) -> None:
+        """This adds post"""
         self._posts.append(post)
 
-    """
-
-    del_post removes a Post at a given index and returns True if successful
-    and False if an invalid index was supplied.
-
-    To determine which post to delete you must implement your own search
-    operation on the posts returned from the get_posts function to find the
-    correct index.
-
-    """
-
     def del_post(self, index: int) -> bool:
+        """This deletes post"""
         try:
             del self._posts[index]
             return True
         except IndexError:
             return False
 
-    """
-
-    get_posts returns the list object containing all posts that have been
-    added to the Profile object
-
-    """
     def get_posts(self) -> list[Post]:
+        """THis gets posts"""
         return self._posts
 
-    """
-
-    save_profile accepts an existing dsu file to save the current instance
-    of Profile to the file system.
-
-    Example usage:
-
-    profile = Profile()
-    profile.save_profile('/path/to/file.dsu')
-
-    Raises DsuFileError
-
-    """
     def save_profile(self, path: str) -> None:
+        """This saves profile"""
         p = Path(path)
 
         if p.exists() and p.suffix == '.dsu':
@@ -185,20 +137,8 @@ class Profile:
         else:
             raise DsuFileError("Invalid DSU file path or type")
 
-    """
-
-    load_profile will populate the current instance of Profile with data
-    stored in a DSU file.
-
-    Example usage:
-
-    profile = Profile()
-    profile.load_profile('/path/to/file.dsu')
-
-    Raises DsuProfileError, DsuFileError
-
-    """
     def load_profile(self, path: str) -> None:
+        """This loads profile"""
         p = Path(path)
 
         if p.exists() and p.suffix == '.dsu':

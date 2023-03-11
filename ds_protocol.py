@@ -6,7 +6,6 @@
 
 import json
 from collections import namedtuple
-from ds_client import *
 from Profile import Post
 
 DataTuple = namedtuple('DataTuple', ['token'])
