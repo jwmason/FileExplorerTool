@@ -2,6 +2,8 @@
 # masonjw1@uci.edu
 # 48567424
 
+"""THis module is in charge of communicating with the DSP server"""
+
 import socket
 import ds_protocol
 import json
@@ -59,7 +61,8 @@ def post_and_bio(message, bio, resp):
         return 'ERROR'
 
 
-def send(server: str, port: int, username: str, password: str, message: str, bio: str = None):
+def send(server: str, port: int, username: str, password: str,
+         message: str, bio: str = None):
     '''
     The send function joins a ds server and sends a message, bio, or both
 

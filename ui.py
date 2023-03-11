@@ -98,14 +98,18 @@ def e_p_commands2(path, user_input):
                     else:
                         error()
             elif user_input == '4':
-                post = str(input('This program makes available keywords\n\'@weather\' - describes the current weather\n\'@lastfm\' - prints artist user provides\nEnter post: '))
+                post = str(input('This program makes available keywords\n\'@weather\'- describes the current weather in Irvine\n\'@lastfm\'- prints the music artist Rihanna\nEnter post: '))
+                if post == '' or post == ' ':
+                    print('Post cannot be empty or whitespace.')
                 if post == '' or post == ' ':
                     print('Post cannot be empty or whitespace.')
                 else:
                     if '@weather' in post:
-                        OpenWeather.transclude(post)
+                        openweather = OpenWeather()
+                        post = openweather.transclude(post)
                     if '@lastfm' in post:
-                        LastFM.transclude(post)
+                        lastfm = LastFM()
+                        post = lastfm.transclude(post)
                     post = Post(post)
                     profile.add_post(post)
                     user_input = input('Would you like to publish this post online? (y/n): ')
@@ -267,7 +271,8 @@ def handle_input(user_input):
             print('Error. Path does not exist.')
             handle_input(user_input)
         user_input = str(input('Enter the name of the DSU file you would like to create: '))
-        new_file = f'\{user_input}.dsu'
+        string = '\\'
+        new_file = string + f'{user_input}.dsu'
         C_path = str(_path) + new_file
         if os.path.exists(Path(C_path)):
             if os.path.getsize(C_path) != 0:

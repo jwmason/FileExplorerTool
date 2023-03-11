@@ -2,6 +2,8 @@
 # masonjw1@uci.edu
 # 48567424
 
+"""This module is in charge of changing data into JSON format"""
+
 import json
 from collections import namedtuple
 from ds_client import *
@@ -27,7 +29,8 @@ def extract_json(json_msg: str) -> DataTuple:
 
 def join(username, password):
     '''Returns join json object back to ds_client.'''
-    json_join = {"join": {"username": f"{username}", "password": f"{password}", "token": ""}}
+    json_join = {"join": {"username": f"{username}",
+                          "password": f"{password}", "token": ""}}
     return json_join
 
 
@@ -36,7 +39,8 @@ def post(message, token):
     if message == '' or message == ' ':
         json_post = 'error'
     else:
-        json_post = {"token": f"{token}", "post": {"entry": f"{message}", "timestamp": f"{Post(message).get_time()}"}}
+        json_post = {"token": f"{token}", "post": {"entry": f"{message}",
+                     "timestamp": f"{Post(message).get_time()}"}}
     return json_post
 
 
@@ -45,7 +49,8 @@ def bio(bio, token):
     if bio == '' or bio == ' ':
         json_bio = 'error'
     else:
-        json_bio = {"token": f"{token}", "bio": {"entry": f"{bio}", "timestamp": f"{Post(bio).get_time()}"}}
+        json_bio = {"token": f"{token}", "bio": {"entry": f"{bio}",
+                    "timestamp": f"{Post(bio).get_time()}"}}
     return json_bio
 
 

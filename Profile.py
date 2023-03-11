@@ -10,7 +10,11 @@
 # ASPECTS OF THIS CODE RIGHT NOW, though can you certainly take
 # a look at it if you are curious since we already covered a bit
 # of the JSON format in class.
-#
+
+"""This module contains parent classes used for child classes
+in other modules"""
+
+
 import json
 import time
 from pathlib import Path

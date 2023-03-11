@@ -13,11 +13,13 @@
 (OpenWeather and LastFM) that prevents redundant code"""
 
 from abc import ABC, abstractmethod
-import urllib.request, urllib.error
+import urllib.request
+import urllib.error
 import json
 
-class WebAPI(ABC):
 
+class WebAPI(ABC):
+  """This is the parent class for the Web API."""
   def _download_url(self, url: str) -> dict:
     """This function implements web api request codes
     in a way that supports all types of web APIs."""
@@ -40,7 +42,7 @@ class WebAPI(ABC):
         print('Error with invalid data formatting from the remote API')
     pass
 
-  def set_apikey(self, apikey:str) -> None:
+  def set_apikey(self, apikey: str) -> None:
     self.apikey = apikey
     pass
 
@@ -49,5 +51,5 @@ class WebAPI(ABC):
     pass
 
   @abstractmethod
-  def transclude(self, message:str) -> str:
+  def transclude(self, message: str) -> str:
     pass
