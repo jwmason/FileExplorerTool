@@ -2,11 +2,13 @@
 # masonjw1@uci.edu
 # 48567424
 
+"""This module is in charge of user interface."""
+
 from pathlib import Path
 import os
-from Profile import Profile, Post
 import ds_client
 import ipaddress
+from Profile import Profile, Post
 from OpenWeather import OpenWeather
 from LastFM import LastFM
 
