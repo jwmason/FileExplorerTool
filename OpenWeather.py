@@ -13,8 +13,8 @@
 
 """This module retrieves data from the OpenWeather API."""
 
+import unittest
 import WebAPI
-
 
 class OpenWeather(WebAPI.WebAPI):
     """This class stores data (temperatures, coordinates, and
@@ -70,3 +70,35 @@ class OpenWeather(WebAPI.WebAPI):
         :returns: The transcluded message
         '''
         return message.replace('@weather', self.description)
+
+
+class TestOpenWeather(unittest.TestCase):
+    """This is a class that tests Openweather"""
+    def test_set_apikey(self):
+        """Tests apikey"""
+        apikey = 'e5e0d69e2df302b25f3f486a47e42067'
+        ow = OpenWeather()
+        ow.set_apikey(apikey)
+        assert ow.apikey == apikey
+
+    def test_load_data(self):
+        """Tests load data"""
+        ow = OpenWeather()
+        ow.set_apikey('e5e0d69e2df302b25f3f486a47e42067')
+        ow.load_data()
+        assert ow.temperature is not None
+        assert ow.high_temperature is not None
+        assert ow.low_temperature is not None
+        assert ow.longitude is not None
+        assert ow.latitude is not None
+        assert ow.description is not None
+        assert ow.humidity is not None
+        assert ow.city is not None
+        assert ow.sunset is not None
+
+    def test_transclude(self):
+        """Test transclude function"""
+        ow = OpenWeather()
+        ow.description = 'sunny'
+        message = 'The weather is @weather'
+        assert ow.transclude(message) == 'The weather is sunny'
