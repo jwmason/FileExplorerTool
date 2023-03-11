@@ -11,6 +11,7 @@
 
 """This module retrieves data from the LastFM API."""
 
+import unittest
 import WebAPI
 
 # key: 2cdc085e470a355813e6aba66d46b6bd
@@ -55,3 +56,26 @@ class LastFM(WebAPI.WebAPI):
         :returns: The transcluded message
         '''
         return message.replace('@lastfm', self.artist)
+
+class TestLastFM(unittest.TestCase):
+    """This is a class that tests Openweather"""
+    def test_set_apikey(self):
+        """Tests apikey"""
+        apikey = '2cdc085e470a355813e6aba66d46b6bd'
+        lastfm = LastFM()
+        lastfm.set_apikey(apikey)
+        assert lastfm.apikey == apikey
+
+    def test_load_data(self):
+        """Tests load data"""
+        lastfm = LastFM()
+        lastfm.set_apikey('2cdc085e470a355813e6aba66d46b6bd')
+        lastfm.load_data()
+        assert lastfm.artist is not None
+
+    def test_transclude(self):
+        """Test transclude function"""
+        lastfm = LastFM()
+        lastfm.artist = 'Shaq'
+        message = 'The artist is @lastfm'
+        assert lastfm.transclude(message) == 'The artist is Shaq'
