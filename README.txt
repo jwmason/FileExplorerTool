@@ -1,11 +1,9 @@
 # Mason Wong
 # masonjw1@uci.edu
-# 48567424
 
 Summary: This program connects to and retrieve data from 2 web API’s (LastFM and OpenWeather)
 using Python’s urllib module. Use transclusion to parse and replace keywords in a journal entry
-with content from web API’s. Write classes to manage your APIs. The program also includes all
-previous functions from previous assignments, including connecting the ICS32 Distributed Social
+with content from web API’s. The program also includes including connecting to DSP servers
 and being able to list directories, create and open files, and delete files.
 
 How to Use:
